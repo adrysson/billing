@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Domain\ValueObjects;
 
 use App\Domain\ValueObjects\DebtId;
 use InvalidArgumentException;
