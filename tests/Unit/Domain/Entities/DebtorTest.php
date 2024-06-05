@@ -25,5 +25,10 @@ class DebtorTest extends TestCase
         $this->assertEquals($name, $debtor->name);
         $this->assertEquals($email, $debtor->email);
         $this->assertEquals($governmentId, $debtor->governmentId);
+        $this->assertEquals([
+            'name' => $name->value,
+            'email' => $email->value,
+            'government_id' => $governmentId->value,
+        ], $debtor->jsonSerialize());
     }
 }

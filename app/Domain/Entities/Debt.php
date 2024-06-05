@@ -5,8 +5,9 @@ namespace App\Domain\Entities;
 use App\Domain\ValueObjects\DebtAmount;
 use App\Domain\ValueObjects\DebtDueDate;
 use App\Domain\ValueObjects\DebtId;
+use JsonSerializable;
 
-class Debt
+class Debt implements JsonSerializable
 {
     public function __construct(
         public readonly DebtId $id,
@@ -14,5 +15,15 @@ class Debt
         public readonly DebtDueDate $dueDate,
         public readonly Debtor $debtor,
     ) {
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id->value,
+            'amount' => $this->amount->value,
+            'due_date' => $this->dueDate->value,
+            'debtor' => $this->debtor->jsonSerialize(),
+        ];
     }
 }

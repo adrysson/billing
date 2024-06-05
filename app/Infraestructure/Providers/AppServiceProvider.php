@@ -1,11 +1,17 @@
 <?php
 
-namespace App\Providers;
+namespace App\Infraestructure\Providers;
 
+use App\Domain\Services\DebtNotifier;
+use App\Infraestructure\Repositories\InMemoryDebtRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public $singletons = [
+        DebtNotifier::class => InMemoryDebtRepository::class,
+    ];
+
     /**
      * Register any application services.
      */

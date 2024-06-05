@@ -29,5 +29,11 @@ class DebtTest extends TestCase
         $this->assertEquals($debtAmount, $debt->amount);
         $this->assertEquals($debtDueDate, $debt->dueDate);
         $this->assertEquals($debtor, $debt->debtor);
+        $this->assertEquals([
+            'id' => $debtId->value,
+            'amount' => $debtAmount->value,
+            'due_date' => $debtDueDate->value,
+            'debtor' => $debtor->jsonSerialize(),
+        ], $debtor->jsonSerialize());
     }
 }
