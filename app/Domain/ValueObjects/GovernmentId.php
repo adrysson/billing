@@ -8,7 +8,7 @@ class GovernmentId
 {
     public function __construct(public readonly string $value)
     {
-        if (strlen($value) != 11 || !ctype_digit($value)) {
+        if (strlen($value) != 4) {
             throw new InvalidArgumentException("Invalid Government ID");
         }
     }

@@ -8,7 +8,7 @@ class DebtorName
 {
     public function __construct(public readonly string $value)
     {
-        if (empty($name)) {
+        if (empty($value)) {
             throw new InvalidArgumentException("Debtor name cannot be empty");
         }
     }
