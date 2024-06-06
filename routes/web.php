@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BillingController;
+use App\Presentation\Http\Controllers\BillingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

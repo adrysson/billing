@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Presentation\Http\Controllers;
 
 use App\Domain\Entities\Debt;
 use App\Domain\Entities\Debtor;
@@ -11,15 +11,16 @@ use App\Domain\ValueObjects\DebtId;
 use App\Domain\ValueObjects\DebtorName;
 use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\GovernmentId;
-use App\Presentation\Http\Controllers\Controller;
+use App\Presentation\Http\Controller;
 use Generator;
 use Illuminate\Http\Request;
-
+use Illuminate\Log\Logger;
 
 class BillingController extends Controller
 {
     public function __construct(
         private readonly DebtNotifier $debtNotifier,
+        private readonly Logger $logger,
     ) {
     }
 

@@ -3,7 +3,7 @@
 namespace App\Infraestructure\Providers;
 
 use App\Domain\Services\DebtNotifier;
-use App\Infraestructure\Repositories\InMemoryDebtRepository;
+use App\Infraestructure\Repositories\InMemory\InMemoryDebtRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
