@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Domain\Contracts\DebtBatchesProcessor;
+use App\Application\DebtBatchService;
 use App\Presentation\Http\Controller;
 use Generator;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class ProcessBillingController extends Controller
     private const BATCH_SIZE = 2000;
 
     public function __construct(
-        private readonly DebtBatchesProcessor $debtBatchesProcessor,
+        private readonly DebtBatchService $debtBatchService,
     ) {
     }
 
@@ -23,7 +23,7 @@ class ProcessBillingController extends Controller
 
             $batchs = $this->getBatches($file);
     
-            $this->debtBatchesProcessor->processBatch($batchs);
+            $this->debtBatchService->processBatch($batchs);
         
             return response()->json([
                 'message' => "File processed successfully",
