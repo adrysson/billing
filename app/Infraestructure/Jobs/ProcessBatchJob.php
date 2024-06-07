@@ -4,13 +4,11 @@ namespace App\Infraestructure\Jobs;
 
 use App\Application\DebtNotificationService;
 use App\Domain\Factories\DebtFactory;
-use Generator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class ProcessBatchJob implements ShouldQueue
 {
@@ -21,7 +19,7 @@ class ProcessBatchJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(protected array $batch)
+    public function __construct(public readonly array $batch)
     {
     }
 

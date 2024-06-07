@@ -6,6 +6,7 @@ use App\Application\DebtBatchService;
 use App\Application\UploadedFileStoreService;
 use App\Domain\Factories\UploadedFileFactory;
 use App\Presentation\Http\Controller;
+use App\Presentation\Http\Requests\ProcessBillingRequest;
 use Generator;
 use Illuminate\Http\Request;
 
@@ -19,29 +20,25 @@ class ProcessBillingController extends Controller
     ) {
     }
 
-    public function index(Request $request)
+    public function index(ProcessBillingRequest $request)
     {
-        if ($request->hasFile('csv_file')) {
-            $file = $request->file('csv_file');
+        $file = $request->file('csv_file');
 
-            $fileName = $file->getClientOriginalName();
+        $fileName = $file->getClientOriginalName();
 
-            $uploadedFile = UploadedFileFactory::new($fileName);
+        $uploadedFile = UploadedFileFactory::new($fileName);
 
-            $this->uploadedFileStoreService->store($uploadedFile);
+        $this->uploadedFileStoreService->store($uploadedFile);
 
-            $realPath = $file->getRealPath();
+        $realPath = $file->getRealPath();
 
-            $batchs = $this->getBatches($realPath);
+        $batchs = $this->getBatches($realPath);
+
+        $this->debtBatchService->processBatch($batchs);
     
-            $this->debtBatchService->processBatch($batchs);
-        
-            return response()->json([
-                'message' => "File processed successfully",
-            ]);
-        }
-
-        return response()->json(['error' => 'Invalid request'], 400);
+        return response()->json([
+            'message' => "File processed successfully",
+        ]);
     }
 
     private function getBatches(string $filePath): Generator
