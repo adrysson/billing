@@ -86,7 +86,7 @@ services:
         depends_on:
             - mysql
             - redis
-        command: /usr/bin/php /var/www/html/artisan queue:work --tries=3
+        command: /usr/bin/php /var/www/html/artisan queue:work --tries=3 --queue=high,default
 networks:
     sail:
         driver: bridge
