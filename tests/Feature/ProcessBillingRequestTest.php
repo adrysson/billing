@@ -50,7 +50,7 @@ class ProcessBillingRequestTest extends TestCase
         $response->assertStatus(200);
 
         Queue::assertPushed(ProcessBatchJob::class, function ($job) use ($file) {
-            return $job->batch !== null;
+            return !empty($job->batch);
         });
     }
 }
