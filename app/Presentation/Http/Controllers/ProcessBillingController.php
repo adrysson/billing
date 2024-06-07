@@ -3,6 +3,8 @@
 namespace App\Presentation\Http\Controllers;
 
 use App\Application\DebtBatchService;
+use App\Application\UploadedFileStoreService;
+use App\Domain\Factories\UploadedFileFactory;
 use App\Presentation\Http\Controller;
 use Generator;
 use Illuminate\Http\Request;
@@ -13,15 +15,24 @@ class ProcessBillingController extends Controller
 
     public function __construct(
         private readonly DebtBatchService $debtBatchService,
+        private readonly UploadedFileStoreService $uploadedFileStoreService,
     ) {
     }
 
     public function index(Request $request)
     {
         if ($request->hasFile('csv_file')) {
-            $file = $request->file('csv_file')->getRealPath();
+            $file = $request->file('csv_file');
 
-            $batchs = $this->getBatches($file);
+            $fileName = $file->getClientOriginalName();
+
+            $uploadedFile = UploadedFileFactory::new($fileName);
+
+            $this->uploadedFileStoreService->store($uploadedFile);
+
+            $realPath = $file->getRealPath();
+
+            $batchs = $this->getBatches($realPath);
     
             $this->debtBatchService->processBatch($batchs);
         

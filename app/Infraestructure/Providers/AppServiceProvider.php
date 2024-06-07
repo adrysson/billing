@@ -4,8 +4,10 @@ namespace App\Infraestructure\Providers;
 
 use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Domain\Contracts\DebtNotifier;
-use App\Infraestructure\Repositories\InMemory\InMemoryDebtRepository;
+use App\Domain\Repositories\UploadedFileRepository;
+use App\Infraestructure\Notifier\InMemory\InMemoryDebtRepository;
 use App\Infraestructure\Processors\JobBasedDebtBatchProcessor;
+use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public $singletons = [
         DebtNotifier::class => InMemoryDebtRepository::class,
         DebtBatchesProcessor::class => JobBasedDebtBatchProcessor::class,
+        UploadedFileRepository::class => EloquentUploadedFileRepository::class,
     ];
 
     /**
