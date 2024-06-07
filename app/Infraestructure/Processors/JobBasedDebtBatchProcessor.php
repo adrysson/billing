@@ -3,7 +3,7 @@
 namespace App\Infraestructure\Processors;
 
 use App\Domain\Contracts\DebtBatchesProcessor;
-use App\Infraestructure\Jobs\SendEmailJob;
+use App\Infraestructure\Jobs\ProcessBatchJob;
 use Generator;
 
 class JobBasedDebtBatchProcessor implements DebtBatchesProcessor
@@ -11,7 +11,7 @@ class JobBasedDebtBatchProcessor implements DebtBatchesProcessor
     public function processBatch(Generator $batches): void
     {
         foreach ($batches as $batch) {
-            SendEmailJob::dispatch($batch);
+            ProcessBatchJob::dispatch($batch);
         }
     }
 }

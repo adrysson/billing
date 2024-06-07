@@ -2,6 +2,9 @@
 
 namespace App\Infraestructure\Jobs;
 
+use App\Application\DebtNotificationService;
+use App\Domain\Factories\DebtFactory;
+use Generator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -9,20 +12,17 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class SendEmailJob implements ShouldQueue
+class ProcessBatchJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    protected $emailData;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($emailData)
+    public function __construct(protected array $batch)
     {
-        $this->emailData = $emailData;
     }
 
     /**
@@ -30,7 +30,12 @@ class SendEmailJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(DebtNotificationService $debtNotificationService)
     {
+        foreach ($this->batch as $row) {
+            $debt = DebtFactory::createFromArray($row);
+
+            $debtNotificationService->notifyDebt($debt);
+        }
     }
 }
