@@ -2,20 +2,17 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Domain\Services\DebtNotifier;
-use App\Jobs\SendEmailJob;
+use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Presentation\Http\Controller;
 use Generator;
 use Illuminate\Http\Request;
-use Illuminate\Log\Logger;
 
 class ProcessBillingController extends Controller
 {
     private const BATCH_SIZE = 2000;
 
     public function __construct(
-        private readonly DebtNotifier $debtNotifier,
-        private readonly Logger $logger,
+        private readonly DebtBatchesProcessor $debtBatchesProcessor,
     ) {
     }
 
@@ -26,9 +23,7 @@ class ProcessBillingController extends Controller
 
             $batchs = $this->getBatches($file);
     
-            foreach ($batchs as $batch) {
-                SendEmailJob::dispatch($batch);
-            }
+            $this->debtBatchesProcessor->processBatch($batchs);
         
             return response()->json([
                 'message' => "File processed successfully",
