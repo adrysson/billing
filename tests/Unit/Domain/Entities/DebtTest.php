@@ -34,6 +34,6 @@ class DebtTest extends TestCase
             'amount' => $debtAmount->value,
             'due_date' => $debtDueDate->value,
             'debtor' => $debtor->jsonSerialize(),
-        ], $debtor->jsonSerialize());
+        ], $debt->jsonSerialize());
     }
 }

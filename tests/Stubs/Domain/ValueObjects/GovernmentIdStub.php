@@ -11,6 +11,6 @@ class GovernmentIdStub
     {
         $faker = Factory::create();
 
-        return new GovernmentId($faker->randomNumber(4));
+        return new GovernmentId($faker->randomNumber(4, true));
     }
 }
