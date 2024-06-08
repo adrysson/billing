@@ -3,12 +3,14 @@
 namespace App\Infraestructure\Jobs;
 
 use App\Application\DebtNotificationService;
+use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Factories\DebtFactory;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use InvalidArgumentException;
 
 class ProcessBatchJob implements ShouldQueue
 {
@@ -28,14 +30,18 @@ class ProcessBatchJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle(DebtNotificationService $debtNotificationService)
+    public function handle(DebtNotificationProcessor $debtNotificationProcessor)
     {
         foreach ($this->batch as $row) {
             $data = str_getcsv($row);
 
-            $debt = DebtFactory::createFromArray($data);
+            try {
+                $debt = DebtFactory::createFromArray($data);
+            } catch (InvalidArgumentException) {
+                continue;
+            }
 
-            $debtNotificationService->notifyDebt($debt);
+            $debtNotificationProcessor->processNotificationDebt($debt);
         }
     }
 }

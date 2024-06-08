@@ -69,14 +69,27 @@ services:
                 - ping
             retries: 3
             timeout: 5s
-    queue:
+    batch-queue:
         build: .docker/php-workers
         restart: unless-stopped
         working_dir: /var/www
         user: "82:82"
         networks:
             - sail
-        entrypoint: php artisan queue:work --tries=3 --queue=high,default
+        entrypoint: php artisan queue:work --timeout=60 --tries=3 --queue=debt-batch-processing
+        volumes:
+            - .:/var/www
+        depends_on:
+            - mysql
+            - redis
+    notification-queue:
+        build: .docker/php-workers
+        restart: unless-stopped
+        working_dir: /var/www
+        user: "82:82"
+        networks:
+            - sail
+        entrypoint: php artisan queue:work --timeout=60 --tries=3 --queue=debt-notification-processing
         volumes:
             - .:/var/www
         depends_on:

@@ -8,11 +8,10 @@ use App\Domain\Factories\UploadedFileFactory;
 use App\Presentation\Http\Controller;
 use App\Presentation\Http\Requests\ProcessBillingRequest;
 use Generator;
-use Illuminate\Http\Request;
 
 class ProcessBillingController extends Controller
 {
-    private const BATCH_SIZE = 2000;
+    private const BATCH_SIZE = 1000;
 
     public function __construct(
         private readonly DebtBatchService $debtBatchService,
