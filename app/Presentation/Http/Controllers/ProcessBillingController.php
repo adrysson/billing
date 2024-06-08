@@ -46,9 +46,9 @@ class ProcessBillingController extends Controller
         if (($handle = fopen($filePath, 'r')) !== false) {
             fgetcsv($handle);
             $batch = [];
-            while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-                $batch[] = $data;
-
+            while (($row = fgets($handle)) !== false) {
+                $batch[] = $row;
+    
                 if (count($batch) >= self::BATCH_SIZE) {
                     yield $batch;
                     $batch = [];

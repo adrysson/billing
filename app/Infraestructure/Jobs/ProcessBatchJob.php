@@ -31,7 +31,9 @@ class ProcessBatchJob implements ShouldQueue
     public function handle(DebtNotificationService $debtNotificationService)
     {
         foreach ($this->batch as $row) {
-            $debt = DebtFactory::createFromArray($row);
+            $data = str_getcsv($row);
+
+            $debt = DebtFactory::createFromArray($data);
 
             $debtNotificationService->notifyDebt($debt);
         }
