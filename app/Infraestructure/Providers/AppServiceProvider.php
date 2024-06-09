@@ -6,14 +6,17 @@ use App\Domain\Contracts\BillingFileReader;
 use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Contracts\DebtNotifier;
+use App\Domain\Contracts\DebtStoreProcessor;
 use App\Domain\Repositories\DebtRepository;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Infraestructure\FileReaders\CsvFileReader;
 use App\Infraestructure\Jobs\ProcessBatchJob;
 use App\Infraestructure\Jobs\ProcessDebtNotificationJob;
+use App\Infraestructure\Jobs\ProcessDebtStoreJob;
 use App\Infraestructure\Notifiers\InMemory\InMemoryDebtRepository;
 use App\Infraestructure\Repositories\Eloquent\EloquentDebtRepository;
 use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         DebtNotificationProcessor::class => ProcessDebtNotificationJob::class,
         BillingFileReader::class => CsvFileReader::class,
         DebtRepository::class => EloquentDebtRepository::class,
+        DebtStoreProcessor::class => ProcessDebtStoreJob::class,
     ];
 
     /**
@@ -40,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Queue::failing(function ($connection, $job, $data) {
+            dd($data);
+        });
     }
 }

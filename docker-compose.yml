@@ -95,6 +95,19 @@ services:
         depends_on:
             - mysql
             - redis
+    store-queue:
+        build: .docker/php-workers
+        restart: unless-stopped
+        working_dir: /var/www
+        user: "82:82"
+        networks:
+            - sail
+        entrypoint: php artisan queue:work --timeout=60 --tries=3 --queue=debt-store-processing
+        volumes:
+            - .:/var/www
+        depends_on:
+            - mysql
+            - redis
 
 networks:
     sail:

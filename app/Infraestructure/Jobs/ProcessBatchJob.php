@@ -3,7 +3,7 @@
 namespace App\Infraestructure\Jobs;
 
 use App\Domain\Contracts\DebtBatchesProcessor;
-use App\Domain\Contracts\DebtNotificationProcessor;
+use App\Domain\Contracts\DebtStoreProcessor;
 use App\Domain\Factories\DebtFactory;
 use Generator;
 use Illuminate\Bus\Queueable;
@@ -31,7 +31,7 @@ class ProcessBatchJob implements ShouldQueue, DebtBatchesProcessor
      *
      * @return void
      */
-    public function handle(DebtNotificationProcessor $debtNotificationProcessor)
+    public function handle(DebtStoreProcessor $debtStoreProcessor)
     {
         foreach ($this->batch as $row) {
             $data = str_getcsv($row);
@@ -42,7 +42,7 @@ class ProcessBatchJob implements ShouldQueue, DebtBatchesProcessor
                 continue;
             }
 
-            $debtNotificationProcessor->processNotificationDebt($debt);
+            $debtStoreProcessor->processStoreDebt($debt);
         }
     }
 
