@@ -37,4 +37,32 @@ class EloquentUploadedFileRepository implements UploadedFileRepository
                 'created_at' => $uploadedFile->createdAt->value,
             ]);
     }
+
+    public function findFiltered(?int $id, ?string $name, ?string $status, ?string $createdAt, ?int $page): array
+    {
+        $query = $this->model->query();
+
+        if ($id !== null) {
+            $query->where('id', $id);
+        }
+
+        if ($name !== null) {
+            $query->where('name', 'like', "%$name%");
+        }
+
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+
+        if ($createdAt !== null) {
+            $query->whereDate('created_at', $createdAt);
+        }
+
+        /**
+         * @var \Illuminate\Pagination\LengthAwarePaginator
+         */
+        $paginate = $query->paginate(10, ['*'], 'page', $page);
+
+        return $paginate->toArray();
+    }
 }
