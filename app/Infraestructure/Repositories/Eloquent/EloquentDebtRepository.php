@@ -39,18 +39,20 @@ class EloquentDebtRepository implements DebtRepository
             ]);
     }
 
-    public function fetchOverdue(int $count): array
+    public function fetchOverdue(int $expireDays, int $count): array
     {
-        return $this->fetchByStatus(
-            status: DebtStatus::canCharge(),
-            count: $count,
-        );
-    }
+        $today = now();
+        $expireDay = now()->subDays($expireDays);
 
-    public function fetchByStatus(array $status, int $count): array
-    {
         return $this->model
-            ->whereIn('status', $status)
+            ->where(function($query) use ($today) {
+                $query->where('status', DebtStatus::created()->value)
+                    ->where('due_date', '<', $today);
+            })
+            ->orWhere(function($query) use ($expireDay) {
+                $query->where('status', DebtStatus::charged()->value)
+                    ->where('updated_at', '<', $expireDay);
+            })
             ->take($count)
             ->get()
             ->toArray();

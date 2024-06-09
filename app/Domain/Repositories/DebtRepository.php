@@ -10,5 +10,5 @@ interface DebtRepository
 
     public function update(Debt $debt): void;
 
-    public function fetchOverdue(int $count): array;
+    public function fetchOverdue(int $expireDays, int $count): array;
 }

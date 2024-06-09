@@ -5,10 +5,10 @@ namespace App\Application\Commands;
 use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Factories\DebtFactory;
 use App\Domain\Repositories\DebtRepository;
-use App\Domain\ValueObjects\DebtStatus;
 
 class DebtsChargeCommand
 {
+    private const EXPIRE_DAYS = 7;
     private const BATCH_SIZE = 1000;
 
     public function __construct(
@@ -19,7 +19,10 @@ class DebtsChargeCommand
 
     public function execute(): void
     {
-        $overdueDebts = $this->debtRepository->fetchOverdue(self::BATCH_SIZE);
+        $overdueDebts = $this->debtRepository->fetchOverdue(
+            expireDays: self::EXPIRE_DAYS,
+            count: self::BATCH_SIZE,
+        );
 
         foreach ($overdueDebts as $data) {
             $debt = DebtFactory::createFromStore($data);
