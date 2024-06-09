@@ -16,7 +16,6 @@ use App\Infraestructure\Jobs\ProcessDebtStoreJob;
 use App\Infraestructure\Notifiers\InMemory\InMemoryDebtRepository;
 use App\Infraestructure\Repositories\Eloquent\EloquentDebtRepository;
 use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -44,8 +43,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Queue::failing(function ($connection, $job, $data) {
-            dd($data);
-        });
     }
 }
