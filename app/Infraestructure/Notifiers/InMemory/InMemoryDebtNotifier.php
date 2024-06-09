@@ -6,7 +6,7 @@ use App\Domain\Contracts\DebtNotifier;
 use App\Domain\Entities\Debt;
 use Illuminate\Log\Logger;
 
-class InMemoryDebtRepository implements DebtNotifier
+class InMemoryDebtNotifier implements DebtNotifier
 {
     public function __construct(
         private readonly Logger $logger,
