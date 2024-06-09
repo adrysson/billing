@@ -6,6 +6,7 @@ use App\Domain\Entities\Debt;
 use Tests\Stubs\Domain\ValueObjects\DebtAmountStub;
 use Tests\Stubs\Domain\ValueObjects\DebtDueDateStub;
 use Tests\Stubs\Domain\ValueObjects\DebtIdStub;
+use Tests\Stubs\Domain\ValueObjects\DebtStatusStub;
 
 class DebtStub
 {
@@ -16,6 +17,7 @@ class DebtStub
             amount: DebtAmountStub::random(),
             dueDate: DebtDueDateStub::random(),
             debtor: DebtorStub::random(),
+            status: DebtStatusStub::random(),
         );
     }
 }

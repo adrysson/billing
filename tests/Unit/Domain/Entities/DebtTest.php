@@ -8,6 +8,7 @@ use Tests\Stubs\Domain\Entities\DebtorStub;
 use Tests\Stubs\Domain\ValueObjects\DebtAmountStub;
 use Tests\Stubs\Domain\ValueObjects\DebtDueDateStub;
 use Tests\Stubs\Domain\ValueObjects\DebtIdStub;
+use Tests\Stubs\Domain\ValueObjects\DebtStatusStub;
 
 class DebtTest extends TestCase
 {
@@ -17,23 +18,27 @@ class DebtTest extends TestCase
         $debtAmount = DebtAmountStub::random();
         $debtDueDate = DebtDueDateStub::random();
         $debtor = DebtorStub::random();
+        $status = DebtStatusStub::random();
 
         $debt = new Debt(
             id: $debtId,
             amount: $debtAmount,
             dueDate: $debtDueDate,
             debtor: $debtor,
+            status: $status,
         );
 
         $this->assertEquals($debtId, $debt->id);
         $this->assertEquals($debtAmount, $debt->amount);
         $this->assertEquals($debtDueDate, $debt->dueDate);
         $this->assertEquals($debtor, $debt->debtor);
+        $this->assertEquals($status, $debt->status());
         $this->assertEquals([
             'id' => $debtId->value,
             'amount' => $debtAmount->value,
             'due_date' => $debtDueDate->value,
             'debtor' => $debtor->jsonSerialize(),
+            'status' => $status->value,
         ], $debt->jsonSerialize());
     }
 }

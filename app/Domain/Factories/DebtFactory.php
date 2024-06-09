@@ -6,6 +6,7 @@ use App\Domain\Entities\Debt;
 use App\Domain\ValueObjects\DebtAmount;
 use App\Domain\ValueObjects\DebtDueDate;
 use App\Domain\ValueObjects\DebtId;
+use App\Domain\ValueObjects\DebtStatus;
 
 class DebtFactory
 {
@@ -22,6 +23,7 @@ class DebtFactory
             amount: $debtAmount,
             dueDate: $debtDueDate,
             debtor: $debtor,
+            status: DebtStatus::initial(),
         );
     }
 }
