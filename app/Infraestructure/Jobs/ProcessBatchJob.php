@@ -2,10 +2,8 @@
 
 namespace App\Infraestructure\Jobs;
 
-use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Factories\DebtFactory;
-use Generator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -13,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use InvalidArgumentException;
 
-class ProcessBatchJob implements ShouldQueue, DebtBatchesProcessor
+class ProcessBatchJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,7 +20,7 @@ class ProcessBatchJob implements ShouldQueue, DebtBatchesProcessor
      *
      * @return void
      */
-    public function __construct(public readonly array $batch = [])
+    public function __construct(public readonly array $batch)
     {
     }
 
@@ -43,13 +41,6 @@ class ProcessBatchJob implements ShouldQueue, DebtBatchesProcessor
             }
 
             $debtNotificationProcessor->processNotificationDebt($debt);
-        }
-    }
-
-    public function processBatch(Generator $batches): void
-    {
-        foreach ($batches as $batch) {
-            self::dispatch($batch)->onQueue('debt-batch-processing');
         }
     }
 }
