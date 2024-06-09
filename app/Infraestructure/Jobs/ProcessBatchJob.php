@@ -2,7 +2,6 @@
 
 namespace App\Infraestructure\Jobs;
 
-use App\Application\DebtNotificationService;
 use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Factories\DebtFactory;
 use Illuminate\Bus\Queueable;
