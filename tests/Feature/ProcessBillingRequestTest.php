@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Domain\ValueObjects\UploadedFileStatus;
 use App\Infraestructure\Jobs\ProcessBatchJob;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -52,5 +53,11 @@ class ProcessBillingRequestTest extends TestCase
         Queue::assertPushed(ProcessBatchJob::class, function (ProcessBatchJob $job) {
             return !empty($job->batch);
         });
+
+        $this->assertDatabaseHas('uploaded_files', [
+            'name' => $file->getClientOriginalName(),
+            'real_path' => $file->getRealPath(),
+            'status' => UploadedFileStatus::processed()->value,
+        ]);
     }
 }

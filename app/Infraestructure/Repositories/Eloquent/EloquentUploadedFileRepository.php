@@ -14,7 +14,7 @@ class EloquentUploadedFileRepository implements UploadedFileRepository
         $model = new ModelsUploadedFile;
 
         $model->name = $uploadedFile->name->value;
-        $model->real_path = $uploadedFile->name->value;
+        $model->real_path = $uploadedFile->realPath->value;
         $model->status = $uploadedFile->status()->value;
         $model->created_at = $uploadedFile->createdAt->value;
 
@@ -28,7 +28,7 @@ class EloquentUploadedFileRepository implements UploadedFileRepository
         ModelsUploadedFile::where('id', $uploadedFile->id()->value)
             ->update([
                 'name' => $uploadedFile->name->value,
-                'real_path' => $uploadedFile->name->value,
+                'real_path' => $uploadedFile->realPath->value,
                 'status' => $uploadedFile->status()->value,
                 'created_at' => $uploadedFile->createdAt->value,
             ]);
