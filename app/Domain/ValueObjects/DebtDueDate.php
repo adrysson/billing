@@ -7,7 +7,7 @@ use InvalidArgumentException;
 
 class DebtDueDate
 {
-    public function __construct(public readonly float $value)
+    public function __construct(public readonly string $value)
     {
         $date = DateTime::createFromFormat('Y-m-d', $value);
         if (!$date || $date->format('Y-m-d') !== $value) {
