@@ -1,5 +1,6 @@
 <?php
 
+use App\Presentation\Http\Controllers\FetchUploadFilesController;
 use App\Presentation\Http\Controllers\ProcessBillingController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,4 +8,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/billing/upload-file', [ProcessBillingController::class, 'index']);
+Route::post('/upload-file', [ProcessBillingController::class, 'index']);
+Route::get('/uploaded-files', [FetchUploadFilesController::class, 'index']);
