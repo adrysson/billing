@@ -8,9 +8,9 @@ use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Contracts\DebtNotifier;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Infraestructure\FileReaders\CsvFileReader;
+use App\Infraestructure\Jobs\ProcessBatchJob;
+use App\Infraestructure\Jobs\ProcessDebtNotificationJob;
 use App\Infraestructure\Notifiers\InMemory\InMemoryDebtRepository;
-use App\Infraestructure\Processors\JobBasedDebtBatchProcessor;
-use App\Infraestructure\Processors\JobBasedDebtNotificationProcessor;
 use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,9 +18,9 @@ class AppServiceProvider extends ServiceProvider
 {
     public $singletons = [
         DebtNotifier::class => InMemoryDebtRepository::class,
-        DebtBatchesProcessor::class => JobBasedDebtBatchProcessor::class,
+        DebtBatchesProcessor::class => ProcessBatchJob::class,
         UploadedFileRepository::class => EloquentUploadedFileRepository::class,
-        DebtNotificationProcessor::class => JobBasedDebtNotificationProcessor::class,
+        DebtNotificationProcessor::class => ProcessDebtNotificationJob::class,
         BillingFileReader::class => CsvFileReader::class,
     ];
 
