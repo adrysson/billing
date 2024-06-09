@@ -44,9 +44,15 @@ class ProcessBillingRequestTest extends TestCase
         $filePath = base_path('tests/Fixtures/input.csv');
         $file = new UploadedFile($filePath, 'input.csv', 'text/csv', null, true);
 
+        $startTime = microtime(true);
+
         $response = $this->postJson('/billing/upload-file', [
             'csv_file' => $file,
         ]);
+
+        $endTime = microtime(true);
+
+        $executionTime = $endTime - $startTime;
 
         $response->assertStatus(200);
 
@@ -59,5 +65,7 @@ class ProcessBillingRequestTest extends TestCase
             'real_path' => $file->getRealPath(),
             'status' => UploadedFileStatus::processed()->value,
         ]);
+
+        $this->assertLessThan(5, $executionTime, 'O tempo de execução excedeu 5 segundos');
     }
 }
