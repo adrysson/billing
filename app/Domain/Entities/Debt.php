@@ -46,8 +46,6 @@ class Debt implements JsonSerializable
     public function created(DebtId $id): void
     {
         $this->id = $this->id;
-
-        $this->status = DebtStatus::created();
     }
 
     public function charged(): void
