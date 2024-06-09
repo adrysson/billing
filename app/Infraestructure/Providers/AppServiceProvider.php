@@ -10,10 +10,10 @@ use App\Domain\Contracts\DebtStoreProcessor;
 use App\Domain\Repositories\DebtRepository;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Infraestructure\FileReaders\CsvFileReader;
-use App\Infraestructure\Jobs\ProcessBatchJob;
-use App\Infraestructure\Jobs\ProcessDebtNotificationJob;
-use App\Infraestructure\Jobs\ProcessDebtStoreJob;
 use App\Infraestructure\Notifiers\InMemory\InMemoryDebtRepository;
+use App\Infraestructure\Processors\JobBased\JobBasedDebtBatchProcessor;
+use App\Infraestructure\Processors\JobBased\JobBasedDebtNotificationProcessor;
+use App\Infraestructure\Processors\JobBased\JobBasedDebtStoreProcessor;
 use App\Infraestructure\Repositories\Eloquent\EloquentDebtRepository;
 use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;
 use Illuminate\Support\ServiceProvider;
@@ -22,12 +22,16 @@ class AppServiceProvider extends ServiceProvider
 {
     public $singletons = [
         DebtNotifier::class => InMemoryDebtRepository::class,
-        DebtBatchesProcessor::class => ProcessBatchJob::class,
-        UploadedFileRepository::class => EloquentUploadedFileRepository::class,
-        DebtNotificationProcessor::class => ProcessDebtNotificationJob::class,
         BillingFileReader::class => CsvFileReader::class,
+
+        // Repositories
         DebtRepository::class => EloquentDebtRepository::class,
-        DebtStoreProcessor::class => ProcessDebtStoreJob::class,
+        UploadedFileRepository::class => EloquentUploadedFileRepository::class,
+
+        // Processors
+        DebtBatchesProcessor::class => JobBasedDebtBatchProcessor::class,
+        DebtNotificationProcessor::class => JobBasedDebtNotificationProcessor::class,
+        DebtStoreProcessor::class => JobBasedDebtStoreProcessor::class,
     ];
 
     /**
