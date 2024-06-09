@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/billing/upload-csv', [ProcessBillingController::class, 'index']);
+Route::post('/billing/upload-file', [ProcessBillingController::class, 'index']);

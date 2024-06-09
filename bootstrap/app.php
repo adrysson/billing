@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: [
-            '/billing/upload-csv',
+            '/billing/upload-file',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

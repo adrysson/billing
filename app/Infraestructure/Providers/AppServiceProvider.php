@@ -2,10 +2,12 @@
 
 namespace App\Infraestructure\Providers;
 
+use App\Domain\Contracts\BillingFileReader;
 use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Contracts\DebtNotifier;
 use App\Domain\Repositories\UploadedFileRepository;
+use App\Infraestructure\FileReaders\CsvFileReader;
 use App\Infraestructure\Notifier\InMemory\InMemoryDebtRepository;
 use App\Infraestructure\Processors\JobBasedDebtBatchProcessor;
 use App\Infraestructure\Processors\JobBasedDebtNotificationProcessor;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         DebtBatchesProcessor::class => JobBasedDebtBatchProcessor::class,
         UploadedFileRepository::class => EloquentUploadedFileRepository::class,
         DebtNotificationProcessor::class => JobBasedDebtNotificationProcessor::class,
+        BillingFileReader::class => CsvFileReader::class,
     ];
 
     /**
