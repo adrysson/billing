@@ -35,7 +35,7 @@ class ProcessDebtStoreBatchJob implements ShouldQueue
             $data = str_getcsv($row);
 
             try {
-                $debt = DebtFactory::createFromArray($data);
+                $debt = DebtFactory::new($data);
             } catch (InvalidArgumentException) {
                 continue;
             }

@@ -4,6 +4,7 @@ namespace App\Infraestructure\Repositories\Eloquent;
 
 use App\Domain\Entities\Debt;
 use App\Domain\Repositories\DebtRepository;
+use App\Domain\ValueObjects\DebtId;
 use App\Infraestructure\Models\Debt as ModelsDebt;
 use Generator;
 
@@ -17,7 +18,7 @@ class EloquentDebtRepository implements DebtRepository
     {
         $model = $this->model->newInstance();
 
-        $model->uuid = $debt->id->value;
+        $model->transaction_id = $debt->transactionId->value;
         $model->amount = $debt->amount->value;
         $model->status = $debt->status()->value;
         $model->due_date = $debt->dueDate->value;
@@ -26,6 +27,16 @@ class EloquentDebtRepository implements DebtRepository
         $model->debtor_government_id = $debt->debtor->governmentId->value;
 
         $model->save();
+
+        $debt->created(new DebtId($model->id));
+    }
+
+    public function update(Debt $debt): void
+    {
+        $this->model->where('id', $debt->id()->value)
+            ->update([
+                'status' => $debt->status()->value,
+            ]);
     }
 
     public function fetchByStatus(array $status, int $count): array

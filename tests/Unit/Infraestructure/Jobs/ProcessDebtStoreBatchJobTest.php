@@ -24,7 +24,7 @@ class ProcessDebtStoreBatchJobTest extends TestCase
             $debt->debtor->email->value,
             $debt->amount->value,
             $debt->dueDate->value,
-            $debt->id->value,
+            $debt->transactionId->value,
         ];
         $batch = [
             implode(',', $data),

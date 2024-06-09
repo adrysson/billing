@@ -9,7 +9,7 @@ use App\Domain\ValueObjects\GovernmentId;
 
 class DebtorFactory
 {
-    public static function createFromArray(array $data): Debtor
+    public static function new(array $data): Debtor
     {
         $debtorName = new DebtorName($data[0]);
         $governmentId = new GovernmentId($data[1]);

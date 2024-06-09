@@ -4,6 +4,7 @@ namespace Tests\Unit\Application\Services;
 
 use App\Application\Services\DebtNotificationService;
 use App\Domain\Contracts\DebtNotifier;
+use App\Domain\Repositories\DebtRepository;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entities\DebtStub;
@@ -16,7 +17,10 @@ class DebtNotificationServiceTest extends TestCase
 
         $debtNotifier = Mockery::mock(DebtNotifier::class);
 
-        $service = new DebtNotificationService($debtNotifier);
+        $debtRepository = Mockery::mock(DebtRepository::class);
+        $debtRepository->shouldReceive('update')->once();
+
+        $service = new DebtNotificationService($debtNotifier, $debtRepository);
 
         $debt = DebtStub::random();
 

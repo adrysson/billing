@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('debts', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid('transaction_id');
             $table->float('amount');
             $table->date('due_date');
             $table->string('debtor_name');

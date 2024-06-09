@@ -31,10 +31,7 @@ class EloquentUploadedFileRepository implements UploadedFileRepository
     {
         $this->model->where('id', $uploadedFile->id()->value)
             ->update([
-                'name' => $uploadedFile->name->value,
-                'real_path' => $uploadedFile->realPath->value,
                 'status' => $uploadedFile->status()->value,
-                'created_at' => $uploadedFile->createdAt->value,
             ]);
     }
 

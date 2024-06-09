@@ -13,17 +13,17 @@ class DebtFactoryTest extends TestCase
     {
         $stub = DebtStub::random();
         
-        $debt = DebtFactory::createFromArray([
+        $debt = DebtFactory::new([
             $stub->debtor->name->value,
             $stub->debtor->governmentId->value,
             $stub->debtor->email->value,
             $stub->amount->value,
             $stub->dueDate->value,
-            $stub->id->value,
+            $stub->transactionId->value,
         ]);
 
         $this->assertInstanceOf(Debt::class, $debt);
-        $this->assertEquals($stub->id->value, $debt->id->value);
+        $this->assertEquals($stub->transactionId->value, $debt->transactionId->value);
         $this->assertEquals($stub->amount->value, $debt->amount->value);
         $this->assertEquals($stub->dueDate->value, $debt->dueDate->value);
         $this->assertEquals($stub->debtor->name->value, $debt->debtor->name->value);
