@@ -6,7 +6,6 @@ use App\Domain\Entities\Debt;
 use App\Domain\Repositories\DebtRepository;
 use App\Domain\ValueObjects\DebtId;
 use App\Infraestructure\Models\Debt as ModelsDebt;
-use Generator;
 
 class EloquentDebtRepository implements DebtRepository
 {
