@@ -38,7 +38,7 @@ class UploadedFile implements JsonSerializable
         $this->status = UploadedFileStatus::created();
     }
 
-    public function fileProcessed(): void
+    public function processed(): void
     {
         $this->status = UploadedFileStatus::final();
     }

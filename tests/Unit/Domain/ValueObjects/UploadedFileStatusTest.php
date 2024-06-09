@@ -24,4 +24,25 @@ class UploadedFileStatusTest extends TestCase
 
         $this->assertEquals($stub->value, $status->value);
     }
+
+    public function test_initial_should_return_received_status(): void
+    {
+        $status = UploadedFileStatus::initial();
+
+        $this->assertEquals(new UploadedFileStatus(UploadedFileStatus::RECEIVED), $status);
+    }
+
+    public function test_created_should_return_created_status(): void
+    {
+        $status = UploadedFileStatus::created();
+
+        $this->assertEquals(new UploadedFileStatus(UploadedFileStatus::CREATED), $status);
+    }
+
+    public function test_final_should_return_processed_status(): void
+    {
+        $status = UploadedFileStatus::final();
+
+        $this->assertEquals(new UploadedFileStatus(UploadedFileStatus::PROCESSED), $status);
+    }
 }

@@ -24,7 +24,7 @@ class BillingProcessingService
 
         $this->debtBatchesProcessor->processBatch($batches);
 
-        $uploadedFile->fileProcessed();
+        $uploadedFile->processed();
 
         $this->uploadedFileRepository->update($uploadedFile);
     }

@@ -12,11 +12,11 @@ class UploadedFileStatus
         self::PROCESSED,
     ];
 
-    private const RECEIVED = 1;
+    public const RECEIVED = 1;
 
-    private const CREATED = 2;
+    public const CREATED = 2;
 
-    private const PROCESSED = 3;
+    public const PROCESSED = 3;
 
     public function __construct(public readonly int $value)
     {
