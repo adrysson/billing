@@ -21,4 +21,17 @@ class DebtorFactory
             governmentId: $governmentId,
         );
     }
+
+    public static function createFromStore(array $data): Debtor
+    {
+        $debtorName = new DebtorName($data['debtor_name']);
+        $governmentId = new GovernmentId($data['debtor_government_id']);
+        $email = new Email($data['debtor_email']);
+
+        return new Debtor(
+            name: $debtorName,
+            email: $email,
+            governmentId: $governmentId,
+        );
+    }
 }

@@ -7,4 +7,6 @@ use App\Domain\Entities\Debt;
 interface DebtRepository
 {
     public function store(Debt $debt): void;
+
+    public function fetchByStatus(array $status, int $count): array;
 }

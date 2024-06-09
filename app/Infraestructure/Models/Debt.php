@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Debt extends Model
 {
     protected $fillable = [
-        'id',
+        'uuid',
         'amount',
         'due_date',
         'debtor_name',

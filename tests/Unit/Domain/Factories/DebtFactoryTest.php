@@ -9,7 +9,7 @@ use Tests\Stubs\Domain\Entities\DebtStub;
 
 class DebtFactoryTest extends TestCase
 {
-    public function test_should_create_from_array_method_create_entity(): void
+    public function test_should_create_from_csv_array_method_create_entity(): void
     {
         $stub = DebtStub::random();
         

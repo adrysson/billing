@@ -5,6 +5,7 @@ namespace App\Infraestructure\Repositories\Eloquent;
 use App\Domain\Entities\Debt;
 use App\Domain\Repositories\DebtRepository;
 use App\Infraestructure\Models\Debt as ModelsDebt;
+use Generator;
 
 class EloquentDebtRepository implements DebtRepository
 {
@@ -16,7 +17,7 @@ class EloquentDebtRepository implements DebtRepository
     {
         $model = $this->model->newInstance();
 
-        $model->id = $debt->id->value;
+        $model->uuid = $debt->id->value;
         $model->amount = $debt->amount->value;
         $model->status = $debt->status()->value;
         $model->due_date = $debt->dueDate->value;
@@ -25,5 +26,14 @@ class EloquentDebtRepository implements DebtRepository
         $model->debtor_government_id = $debt->debtor->governmentId->value;
 
         $model->save();
+    }
+
+    public function fetchByStatus(array $status, int $count): array
+    {
+        return $this->model
+            ->whereIn('status', $status)
+            ->take($count)
+            ->get()
+            ->toArray();
     }
 }

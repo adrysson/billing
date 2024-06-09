@@ -26,4 +26,21 @@ class DebtFactory
             status: DebtStatus::initial(),
         );
     }
+
+    public static function createFromStore(array $data): Debt
+    {
+        $debtAmount = new DebtAmount($data['amount']);
+        $debtDueDate = new DebtDueDate($data['due_date']);
+        $debtId = new DebtId($data['uuid']);
+
+        $debtor = DebtorFactory::createFromStore($data);
+
+        return new Debt(
+            id: $debtId,
+            amount: $debtAmount,
+            dueDate: $debtDueDate,
+            debtor: $debtor,
+            status: new DebtStatus($data['status']),
+        );
+    }
 }

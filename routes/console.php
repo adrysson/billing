@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Commands\DebtsChargeCommand;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
@@ -9,6 +10,6 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::call(function () {
-    Log::info('processo');
+Schedule::call(function (DebtsChargeCommand $command) {
+    $command->execute();
 })->everyMinute();

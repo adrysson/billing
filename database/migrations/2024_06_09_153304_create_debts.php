@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('debts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
+            $table->uuid('uuid');
             $table->float('amount');
             $table->date('due_date');
             $table->string('debtor_name');

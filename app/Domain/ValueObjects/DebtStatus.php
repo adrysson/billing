@@ -39,4 +39,11 @@ class DebtStatus
     {
         return new self(self::PAID);
     }
+
+    public static function canCharge(): array
+    {
+        return [
+            self::RECEIVED,
+        ];
+    }
 }
