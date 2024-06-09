@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Infraestructure\FileReaders;
 
-use App\Application\DebtNotificationService;
+use App\Application\Services\DebtNotificationService;
 use App\Infraestructure\Jobs\ProcessDebtNotificationJob;
 use Mockery;
 use PHPUnit\Framework\TestCase;

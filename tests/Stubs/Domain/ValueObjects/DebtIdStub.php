@@ -11,6 +11,6 @@ class DebtIdStub
     {
         $faker = Factory::create();
 
-        return new DebtId($faker->uuid());
+        return new DebtId($faker->randomNumber());
     }
 }

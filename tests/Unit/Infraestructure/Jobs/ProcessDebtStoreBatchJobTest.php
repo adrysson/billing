@@ -2,20 +2,20 @@
 
 namespace Tests\Unit\Infraestructure\FileReaders;
 
-use App\Domain\Contracts\DebtNotificationProcessor;
+use App\Domain\Contracts\DebtStoreProcessor;
 use App\Domain\Factories\DebtFactory;
-use App\Infraestructure\Jobs\ProcessBatchJob;
+use App\Infraestructure\Jobs\ProcessDebtStoreBatchJob;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entities\DebtStub;
 
-class ProcessBatchJobTest extends TestCase
+class ProcessDebtStoreBatchJobTest extends TestCase
 {
     public function test_not_throw_exception_when_not_has_errors()
     {
         $this->expectNotToPerformAssertions();
 
-        $debtNotificationProcessor = Mockery::mock(DebtNotificationProcessor::class);
+        $debtStoreProcessor = Mockery::mock(DebtStoreProcessor::class);
 
         $debt = DebtStub::random();
         $data = [
@@ -24,21 +24,21 @@ class ProcessBatchJobTest extends TestCase
             $debt->debtor->email->value,
             $debt->amount->value,
             $debt->dueDate->value,
-            $debt->id->value,
+            $debt->transactionId->value,
         ];
         $batch = [
             implode(',', $data),
         ];
 
-        $job = new ProcessBatchJob($batch);
+        $job = new ProcessDebtStoreBatchJob($batch);
 
         $debtFactory = Mockery::mock(DebtFactory::class);
         $debtFactory->shouldReceive('createFromArray')->andReturn($debt);
-        $debtNotificationProcessor->shouldReceive('processNotificationDebt')->once();
+        $debtStoreProcessor->shouldReceive('processStoreDebt')->once();
 
         app()->instance(DebtFactory::class, $debtFactory);
 
-        $job->handle($debtNotificationProcessor);
+        $job->handle($debtStoreProcessor);
     }
 
     protected function tearDown(): void

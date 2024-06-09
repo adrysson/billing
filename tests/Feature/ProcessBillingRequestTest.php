@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Domain\ValueObjects\UploadedFileStatus;
-use App\Infraestructure\Jobs\ProcessBatchJob;
+use App\Infraestructure\Jobs\ProcessDebtStoreBatchJob;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
@@ -56,7 +56,7 @@ class ProcessBillingRequestTest extends TestCase
 
         $response->assertStatus(200);
 
-        Queue::assertPushed(ProcessBatchJob::class, function (ProcessBatchJob $job) {
+        Queue::assertPushed(ProcessDebtStoreBatchJob::class, function (ProcessDebtStoreBatchJob $job) {
             return !empty($job->batch);
         });
 

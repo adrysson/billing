@@ -3,7 +3,6 @@
 namespace App\Domain\Contracts;
 
 use App\Domain\Entities\Debt;
-use Generator;
 
 interface DebtNotificationProcessor
 {

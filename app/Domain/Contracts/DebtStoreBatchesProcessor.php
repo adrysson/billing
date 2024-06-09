@@ -4,7 +4,7 @@ namespace App\Domain\Contracts;
 
 use Generator;
 
-interface DebtBatchesProcessor
+interface DebtStoreBatchesProcessor
 {
     public function processBatch(Generator $batches): void;
 }

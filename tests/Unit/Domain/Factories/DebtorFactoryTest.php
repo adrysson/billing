@@ -13,7 +13,7 @@ class DebtorFactoryTest extends TestCase
     {
         $stub = DebtorStub::random();
         
-        $debtor = DebtorFactory::createFromArray([
+        $debtor = DebtorFactory::new([
             $stub->name->value,
             $stub->governmentId->value,
             $stub->email->value,

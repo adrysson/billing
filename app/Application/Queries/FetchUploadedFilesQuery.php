@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Queries;
 
 use App\Domain\Repositories\UploadedFileRepository;
 

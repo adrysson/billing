@@ -9,21 +9,21 @@ use Tests\Stubs\Domain\Entities\DebtStub;
 
 class DebtFactoryTest extends TestCase
 {
-    public function test_should_create_from_array_method_create_entity(): void
+    public function test_should_create_from_csv_array_method_create_entity(): void
     {
         $stub = DebtStub::random();
         
-        $debt = DebtFactory::createFromArray([
+        $debt = DebtFactory::new([
             $stub->debtor->name->value,
             $stub->debtor->governmentId->value,
             $stub->debtor->email->value,
             $stub->amount->value,
             $stub->dueDate->value,
-            $stub->id->value,
+            $stub->transactionId->value,
         ]);
 
         $this->assertInstanceOf(Debt::class, $debt);
-        $this->assertEquals($stub->id->value, $debt->id->value);
+        $this->assertEquals($stub->transactionId->value, $debt->transactionId->value);
         $this->assertEquals($stub->amount->value, $debt->amount->value);
         $this->assertEquals($stub->dueDate->value, $debt->dueDate->value);
         $this->assertEquals($stub->debtor->name->value, $debt->debtor->name->value);

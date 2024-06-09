@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('uploaded_files', function (Blueprint $table) {
+        Schema::create('debts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('real_path');
+            $table->uuid('transaction_id');
+            $table->float('amount');
+            $table->date('due_date');
+            $table->string('debtor_name');
+            $table->string('debtor_email');
+            $table->string('debtor_government_id');
             $table->integer('status')->index();
             $table->timestamps();
         });
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('uploaded_files');
+        Schema::dropIfExists('debts');
     }
 };

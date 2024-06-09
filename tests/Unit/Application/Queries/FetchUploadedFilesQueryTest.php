@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Application;
+namespace Tests\Unit\Application\Queries;
 
-use App\Application\FetchUploadedFilesQuery;
+use App\Application\Queries\FetchUploadedFilesQuery;
 use App\Domain\Repositories\UploadedFileRepository;
 use Mockery;
 use PHPUnit\Framework\TestCase;

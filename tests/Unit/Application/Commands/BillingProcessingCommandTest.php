@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Application;
+namespace Tests\Unit\Application\Commands;
 
-use App\Application\BillingProcessingService;
+use App\Application\Commands\BillingProcessingCommand;
 use App\Domain\Contracts\BillingFileReader;
-use App\Domain\Contracts\DebtBatchesProcessor;
+use App\Domain\Contracts\DebtStoreBatchesProcessor;
 use App\Domain\Factories\UploadedFileFactory;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Domain\ValueObjects\UploadedFileStatus;
@@ -14,15 +14,15 @@ use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\ValueObjects\UploadedFileNameStub;
 use Tests\Stubs\Domain\ValueObjects\UploadedFileRealPathStub;
 
-class BillingProcessingServiceTest extends TestCase
+class BillingProcessingCommandTest extends TestCase
 {
     public function test_process_billing_should_change_upload_file_status_to_processed_when_not_has_error()
     {
-        $debtBatchesProcessor = Mockery::mock(DebtBatchesProcessor::class);
+        $debtStoreBatchesProcessor = Mockery::mock(DebtStoreBatchesProcessor::class);
         $uploadedFileRepository = Mockery::mock(UploadedFileRepository::class);
         $billingFileReader = Mockery::mock(BillingFileReader::class);
 
-        $service = new BillingProcessingService($debtBatchesProcessor, $uploadedFileRepository, $billingFileReader);
+        $service = new BillingProcessingCommand($debtStoreBatchesProcessor, $uploadedFileRepository, $billingFileReader);
 
         $fileName = UploadedFileNameStub::random();
         $realPath = UploadedFileRealPathStub::random();
@@ -37,13 +37,13 @@ class BillingProcessingServiceTest extends TestCase
 
         $billingFileReader->shouldReceive('getBatches')->with($uploadedFile->realPath)->andReturn($batches);
 
-        $debtBatchesProcessor->shouldReceive('processBatch')->with($batches);
+        $debtStoreBatchesProcessor->shouldReceive('processBatch')->with($batches);
 
         $uploadedFile->processed();
         
         $uploadedFileRepository->shouldReceive('update')->with($uploadedFile);
 
-        $service->processBilling($uploadedFile);
+        $service->execute($uploadedFile);
 
         $this->assertEquals(UploadedFileStatus::processed()->value, $uploadedFile->status()->value);
     }

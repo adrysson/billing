@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Application\FetchUploadedFilesQuery;
+use App\Application\Queries\FetchUploadedFilesQuery;
 use App\Presentation\Http\Controller;
 use App\Presentation\Http\Requests\FetchUploadFilesRequest;
 use Illuminate\Http\JsonResponse;

@@ -2,15 +2,15 @@
 
 namespace App\Infraestructure\Jobs;
 
-use App\Application\Services\DebtNotificationService;
 use App\Domain\Entities\Debt;
+use App\Domain\Repositories\DebtRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ProcessDebtNotificationJob implements ShouldQueue
+class ProcessDebtStoreJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -28,8 +28,8 @@ class ProcessDebtNotificationJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle(DebtNotificationService $debtNotificationService)
+    public function handle(DebtRepository $debtRepository)
     {
-        $debtNotificationService->notifyDebt($this->debt);
+        $debtRepository->store($this->debt);
     }
 }
