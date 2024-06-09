@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Services;
 
 use App\Domain\Contracts\DebtNotifier;
 use App\Domain\Entities\Debt;

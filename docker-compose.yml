@@ -108,6 +108,18 @@ services:
         depends_on:
             - mysql
             - redis
+    cron-notification:
+        build: .docker/php-workers
+        restart: unless-stopped
+        user: "82:82"
+        networks:
+            - sail
+        entrypoint: /usr/local/bin/entrypoint-cronworker
+        volumes:
+            - .:/var/www
+        depends_on:
+            - mysql
+            - app
 
 networks:
     sail:

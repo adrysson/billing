@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Application;
+namespace Tests\Unit\Application\Services;
 
-use App\Application\DebtNotificationService;
+use App\Application\Services\DebtNotificationService;
 use App\Domain\Contracts\DebtNotifier;
 use Mockery;
 use PHPUnit\Framework\TestCase;

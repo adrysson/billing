@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Application\BillingProcessingService;
+use App\Application\Commands\BillingProcessingService;
 use App\Domain\Factories\UploadedFileFactory;
 use App\Presentation\Http\Controller;
 use App\Presentation\Http\Requests\ProcessBillingRequest;

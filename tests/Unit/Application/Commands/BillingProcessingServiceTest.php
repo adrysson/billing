@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Application;
+namespace Tests\Unit\Application\Commands;
 
-use App\Application\BillingProcessingService;
+use App\Application\Commands\BillingProcessingService;
 use App\Domain\Contracts\BillingFileReader;
 use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Domain\Factories\UploadedFileFactory;

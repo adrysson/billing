@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Commands;
 
 use App\Domain\Contracts\BillingFileReader;
 use App\Domain\Contracts\DebtBatchesProcessor;
