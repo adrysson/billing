@@ -7,7 +7,7 @@ use App\Domain\Contracts\DebtStoreBatchesProcessor;
 use App\Domain\Entities\UploadedFile;
 use App\Domain\Repositories\UploadedFileRepository;
 
-class BillingProcessingService
+class BillingProcessingCommand
 {
     public function __construct(
         private readonly DebtStoreBatchesProcessor $debtStoreBatchesProcessor,
@@ -16,7 +16,7 @@ class BillingProcessingService
     ) {
     }
 
-    public function processBilling(UploadedFile $uploadedFile): void
+    public function execute(UploadedFile $uploadedFile): void
     {
         $this->uploadedFileRepository->store($uploadedFile);
 

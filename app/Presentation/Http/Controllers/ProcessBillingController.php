@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Application\Commands\BillingProcessingService;
+use App\Application\Commands\BillingProcessingCommand;
 use App\Domain\Factories\UploadedFileFactory;
 use App\Presentation\Http\Controller;
 use App\Presentation\Http\Requests\ProcessBillingRequest;
@@ -10,7 +10,7 @@ use App\Presentation\Http\Requests\ProcessBillingRequest;
 class ProcessBillingController extends Controller
 {
     public function __construct(
-        private readonly BillingProcessingService $billingProcessingService,
+        private readonly BillingProcessingCommand $billingProcessingCommand,
     ) {
     }
 
@@ -27,7 +27,7 @@ class ProcessBillingController extends Controller
             realPath: $realPath,
         );
 
-        $this->billingProcessingService->processBilling($uploadedFile);
+        $this->billingProcessingCommand->execute($uploadedFile);
 
         return response()->json([
             'message' => "File processed successfully",
