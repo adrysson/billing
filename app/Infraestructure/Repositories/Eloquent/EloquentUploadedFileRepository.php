@@ -9,9 +9,13 @@ use App\Infraestructure\Models\UploadedFile as ModelsUploadedFile;
 
 class EloquentUploadedFileRepository implements UploadedFileRepository
 {
+    public function __construct(private ModelsUploadedFile $model)
+    {
+    }
+
     public function store(UploadedFile $uploadedFile): void
     {
-        $model = new ModelsUploadedFile;
+        $model = $this->model->newInstance();
 
         $model->name = $uploadedFile->name->value;
         $model->real_path = $uploadedFile->realPath->value;
@@ -25,7 +29,7 @@ class EloquentUploadedFileRepository implements UploadedFileRepository
 
     public function update(UploadedFile $uploadedFile): void
     {
-        ModelsUploadedFile::where('id', $uploadedFile->id()->value)
+        $this->model->where('id', $uploadedFile->id()->value)
             ->update([
                 'name' => $uploadedFile->name->value,
                 'real_path' => $uploadedFile->realPath->value,

@@ -3,13 +3,10 @@
 namespace Tests\Unit\Infraestructure\Models;
 
 use App\Infraestructure\Models\UploadedFile;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 
 class UploadedFileTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_fillable_attributes()
     {
         $uploadedFile = new UploadedFile();
