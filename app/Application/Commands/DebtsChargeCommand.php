@@ -19,12 +19,9 @@ class DebtsChargeCommand
 
     public function execute(): void
     {
-        $debts = $this->debtRepository->fetchByStatus(
-            status: DebtStatus::canCharge(),
-            count: self::BATCH_SIZE,
-        );
+        $overdueDebts = $this->debtRepository->fetchOverdue(self::BATCH_SIZE);
 
-        foreach ($debts as $data) {
+        foreach ($overdueDebts as $data) {
             $debt = DebtFactory::createFromStore($data);
 
             $this->debtNotificationProcessor->processNotificationDebt($debt);

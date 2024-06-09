@@ -5,6 +5,7 @@ namespace App\Infraestructure\Repositories\Eloquent;
 use App\Domain\Entities\Debt;
 use App\Domain\Repositories\DebtRepository;
 use App\Domain\ValueObjects\DebtId;
+use App\Domain\ValueObjects\DebtStatus;
 use App\Infraestructure\Models\Debt as ModelsDebt;
 
 class EloquentDebtRepository implements DebtRepository
@@ -36,6 +37,14 @@ class EloquentDebtRepository implements DebtRepository
             ->update([
                 'status' => $debt->status()->value,
             ]);
+    }
+
+    public function fetchOverdue(int $count): array
+    {
+        return $this->fetchByStatus(
+            status: DebtStatus::canCharge(),
+            count: $count,
+        );
     }
 
     public function fetchByStatus(array $status, int $count): array
