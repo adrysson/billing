@@ -10,7 +10,7 @@ use Tests\Stubs\Domain\Entities\DebtStub;
 
 class DebtNotificationServiceTest extends TestCase
 {
-    public function testNotifyDebt()
+    public function test_not_throw_exception_when_not_has_errors()
     {
         $this->expectNotToPerformAssertions();
 

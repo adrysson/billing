@@ -8,7 +8,7 @@ use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Contracts\DebtNotifier;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Infraestructure\FileReaders\CsvFileReader;
-use App\Infraestructure\Notifier\InMemory\InMemoryDebtRepository;
+use App\Infraestructure\Notifiers\InMemory\InMemoryDebtRepository;
 use App\Infraestructure\Processors\JobBasedDebtBatchProcessor;
 use App\Infraestructure\Processors\JobBasedDebtNotificationProcessor;
 use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;

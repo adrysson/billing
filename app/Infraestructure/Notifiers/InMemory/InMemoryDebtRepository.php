@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infraestructure\Notifier\InMemory;
+namespace App\Infraestructure\Notifiers\InMemory;
 
 use App\Domain\Contracts\DebtNotifier;
 use App\Domain\Entities\Debt;
