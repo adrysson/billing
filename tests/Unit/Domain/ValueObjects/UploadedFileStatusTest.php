@@ -39,9 +39,9 @@ class UploadedFileStatusTest extends TestCase
         $this->assertEquals(new UploadedFileStatus(UploadedFileStatus::CREATED), $status);
     }
 
-    public function test_final_should_return_processed_status(): void
+    public function test_processed_should_return_processed_status(): void
     {
-        $status = UploadedFileStatus::final();
+        $status = UploadedFileStatus::processed();
 
         $this->assertEquals(new UploadedFileStatus(UploadedFileStatus::PROCESSED), $status);
     }

@@ -35,7 +35,7 @@ class UploadedFileStatus
         return new self(self::CREATED);
     }
 
-    public static function final(): self
+    public static function processed(): self
     {
         return new self(self::PROCESSED);
     }

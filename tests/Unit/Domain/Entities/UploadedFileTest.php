@@ -58,12 +58,12 @@ class UploadedFileTest extends TestCase
         $this->assertEquals($id->value, $uploadedFile->id()->value);
     }
 
-    public function test_should_processed_change_status_to_final(): void
+    public function test_should_processed_change_status_to_processed(): void
     {
         $uploadedFile = UploadedFileStub::created();
 
         $uploadedFile->processed();
 
-        $this->assertEquals(UploadedFileStatus::final()->value, $uploadedFile->status()->value);
+        $this->assertEquals(UploadedFileStatus::processed()->value, $uploadedFile->status()->value);
     }
 }
