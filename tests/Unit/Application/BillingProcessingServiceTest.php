@@ -59,5 +59,4 @@ class BillingProcessingServiceTest extends TestCase
         yield ['data1', 'data2'];
         yield ['data3', 'data4'];
     }
-
 }
