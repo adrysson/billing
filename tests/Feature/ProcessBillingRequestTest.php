@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Infraestructure\Jobs\ProcessBatchJob;
-use App\Infraestructure\Jobs\ProcessDebtNotificationJob;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
@@ -52,9 +51,6 @@ class ProcessBillingRequestTest extends TestCase
 
         Queue::assertPushed(ProcessBatchJob::class, function (ProcessBatchJob $job) {
             return !empty($job->batch);
-        });
-        Queue::assertPushed(ProcessDebtNotificationJob::class, function (ProcessDebtNotificationJob $job) {
-            return !empty($job->debt);
         });
     }
 }

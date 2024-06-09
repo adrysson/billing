@@ -8,6 +8,8 @@ class UploadedFile extends Model
 {
     protected $fillable = [
         'name',
+        'real_path',
+        'status',
         'created_at',
     ];
 

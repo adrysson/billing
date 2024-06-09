@@ -5,15 +5,15 @@ namespace App\Application;
 use App\Domain\Entities\UploadedFile;
 use App\Domain\Repositories\UploadedFileRepository;
 
-class UploadedFileStoreService
+class UploadedFileUpdateService
 {
     public function __construct(
         private readonly UploadedFileRepository $uploadedFileRepository,
     ) {
     }
 
-    public function store(UploadedFile $uploadedFile): void
+    public function update(UploadedFile $uploadedFile): void
     {
-        $this->uploadedFileRepository->store($uploadedFile);
+        $this->uploadedFileRepository->update($uploadedFile);
     }
 }

@@ -5,18 +5,19 @@ namespace App\Domain\Factories;
 use App\Domain\Entities\UploadedFile;
 use App\Domain\ValueObjects\CreatedAt;
 use App\Domain\ValueObjects\UploadedFileName;
+use App\Domain\ValueObjects\UploadedFileRealPath;
+use App\Domain\ValueObjects\UploadedFileStatus;
 
 class UploadedFileFactory
 {
-    public static function new(string $fileName): UploadedFile
+    public static function new(string $fileName, string $realPath): UploadedFile
     {
-        $name = new UploadedFileName($fileName);
-        $createdAt = CreatedAt::new();
-
         return new UploadedFile(
             id: null,
-            name: $name,
-            createdAt: $createdAt,
+            name: new UploadedFileName($fileName),
+            realPath: new UploadedFileRealPath($realPath),
+            status: UploadedFileStatus::initial(),
+            createdAt: CreatedAt::new(),
         );
     }
 }
