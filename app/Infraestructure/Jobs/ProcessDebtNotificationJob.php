@@ -36,6 +36,6 @@ class ProcessDebtNotificationJob implements ShouldQueue, DebtNotificationProcess
 
     public function processNotificationDebt(Debt $debt): void
     {
-        ProcessDebtNotificationJob::dispatch($debt)->onQueue('debt-notification-processing');
+        self::dispatch($debt)->onQueue('debt-notification-processing');
     }
 }
