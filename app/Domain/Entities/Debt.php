@@ -54,4 +54,9 @@ class Debt implements JsonSerializable
     {
         $this->status = DebtStatus::charged();
     }
+
+    public function expired(): void
+    {
+        $this->status = DebtStatus::expired();
+    }
 }
