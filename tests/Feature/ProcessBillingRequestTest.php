@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Domain\ValueObjects\UploadedFileStatus;
-use App\Infraestructure\Jobs\ProcessBatchJob;
+use App\Infraestructure\Jobs\ProcessDebtStoreBatchJob;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;

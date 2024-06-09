@@ -4,12 +4,12 @@ namespace Tests\Unit\Infraestructure\FileReaders;
 
 use App\Domain\Contracts\DebtStoreProcessor;
 use App\Domain\Factories\DebtFactory;
-use App\Infraestructure\Jobs\ProcessBatchJob;
+use App\Infraestructure\Jobs\ProcessDebtStoreBatchJob;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entities\DebtStub;
 
-class ProcessBatchJobTest extends TestCase
+class ProcessDebtStoreBatchJobTest extends TestCase
 {
     public function test_not_throw_exception_when_not_has_errors()
     {
@@ -30,7 +30,7 @@ class ProcessBatchJobTest extends TestCase
             implode(',', $data),
         ];
 
-        $job = new ProcessBatchJob($batch);
+        $job = new ProcessDebtStoreBatchJob($batch);
 
         $debtFactory = Mockery::mock(DebtFactory::class);
         $debtFactory->shouldReceive('createFromArray')->andReturn($debt);

@@ -3,16 +3,16 @@
 namespace App\Infraestructure\Providers;
 
 use App\Domain\Contracts\BillingFileReader;
-use App\Domain\Contracts\DebtBatchesProcessor;
 use App\Domain\Contracts\DebtNotificationProcessor;
 use App\Domain\Contracts\DebtNotifier;
+use App\Domain\Contracts\DebtStoreBatchesProcessor;
 use App\Domain\Contracts\DebtStoreProcessor;
 use App\Domain\Repositories\DebtRepository;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Infraestructure\FileReaders\CsvFileReader;
 use App\Infraestructure\Notifiers\InMemory\InMemoryDebtRepository;
-use App\Infraestructure\Processors\JobBased\JobBasedDebtBatchProcessor;
 use App\Infraestructure\Processors\JobBased\JobBasedDebtNotificationProcessor;
+use App\Infraestructure\Processors\JobBased\JobBasedDebtStoreBatchProcessor;
 use App\Infraestructure\Processors\JobBased\JobBasedDebtStoreProcessor;
 use App\Infraestructure\Repositories\Eloquent\EloquentDebtRepository;
 use App\Infraestructure\Repositories\Eloquent\EloquentUploadedFileRepository;
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         UploadedFileRepository::class => EloquentUploadedFileRepository::class,
 
         // Processors
-        DebtBatchesProcessor::class => JobBasedDebtBatchProcessor::class,
+        DebtStoreBatchesProcessor::class => JobBasedDebtStoreBatchProcessor::class,
         DebtNotificationProcessor::class => JobBasedDebtNotificationProcessor::class,
         DebtStoreProcessor::class => JobBasedDebtStoreProcessor::class,
     ];

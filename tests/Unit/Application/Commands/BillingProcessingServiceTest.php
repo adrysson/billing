@@ -4,7 +4,7 @@ namespace Tests\Unit\Application\Commands;
 
 use App\Application\Commands\BillingProcessingService;
 use App\Domain\Contracts\BillingFileReader;
-use App\Domain\Contracts\DebtBatchesProcessor;
+use App\Domain\Contracts\DebtStoreBatchesProcessor;
 use App\Domain\Factories\UploadedFileFactory;
 use App\Domain\Repositories\UploadedFileRepository;
 use App\Domain\ValueObjects\UploadedFileStatus;
@@ -18,11 +18,11 @@ class BillingProcessingServiceTest extends TestCase
 {
     public function test_process_billing_should_change_upload_file_status_to_processed_when_not_has_error()
     {
-        $debtBatchesProcessor = Mockery::mock(DebtBatchesProcessor::class);
+        $debtStoreBatchesProcessor = Mockery::mock(DebtStoreBatchesProcessor::class);
         $uploadedFileRepository = Mockery::mock(UploadedFileRepository::class);
         $billingFileReader = Mockery::mock(BillingFileReader::class);
 
-        $service = new BillingProcessingService($debtBatchesProcessor, $uploadedFileRepository, $billingFileReader);
+        $service = new BillingProcessingService($debtStoreBatchesProcessor, $uploadedFileRepository, $billingFileReader);
 
         $fileName = UploadedFileNameStub::random();
         $realPath = UploadedFileRealPathStub::random();
@@ -37,7 +37,7 @@ class BillingProcessingServiceTest extends TestCase
 
         $billingFileReader->shouldReceive('getBatches')->with($uploadedFile->realPath)->andReturn($batches);
 
-        $debtBatchesProcessor->shouldReceive('processBatch')->with($batches);
+        $debtStoreBatchesProcessor->shouldReceive('processBatch')->with($batches);
 
         $uploadedFile->processed();
         

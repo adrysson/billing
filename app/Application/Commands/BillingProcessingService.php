@@ -3,14 +3,14 @@
 namespace App\Application\Commands;
 
 use App\Domain\Contracts\BillingFileReader;
-use App\Domain\Contracts\DebtBatchesProcessor;
+use App\Domain\Contracts\DebtStoreBatchesProcessor;
 use App\Domain\Entities\UploadedFile;
 use App\Domain\Repositories\UploadedFileRepository;
 
 class BillingProcessingService
 {
     public function __construct(
-        private readonly DebtBatchesProcessor $debtBatchesProcessor,
+        private readonly DebtStoreBatchesProcessor $debtStoreBatchesProcessor,
         private readonly UploadedFileRepository $uploadedFileRepository,
         private readonly BillingFileReader $billingFileReader,
     ) {
@@ -22,7 +22,7 @@ class BillingProcessingService
 
         $batches = $this->billingFileReader->getBatches($uploadedFile->realPath);
 
-        $this->debtBatchesProcessor->processBatch($batches);
+        $this->debtStoreBatchesProcessor->processBatch($batches);
 
         $uploadedFile->processed();
 
