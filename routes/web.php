@@ -8,5 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/upload-file', [ProcessBillingController::class, 'index']);
-Route::get('/uploaded-files', [FetchUploadFilesController::class, 'index']);
+Route::prefix('api')->group(function() {
+    Route::post('/upload-file', [ProcessBillingController::class, 'index']);
+    Route::get('/uploaded-files', [FetchUploadFilesController::class, 'index']);
+});
