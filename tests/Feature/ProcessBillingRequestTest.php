@@ -16,7 +16,7 @@ class ProcessBillingRequestTest extends TestCase
 
     public function test_it_requires_a_csv_file()
     {
-        $response = $this->postJson('/upload-file', []);
+        $response = $this->postJson('/api/upload-file', []);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('csv_file');
@@ -28,7 +28,7 @@ class ProcessBillingRequestTest extends TestCase
 
         $file = UploadedFile::fake()->create('document.pdf', 100, 'application/pdf');
 
-        $response = $this->postJson('/upload-file', [
+        $response = $this->postJson('/api/upload-file', [
             'csv_file' => $file,
         ]);
 
@@ -46,7 +46,7 @@ class ProcessBillingRequestTest extends TestCase
 
         $startTime = microtime(true);
 
-        $response = $this->postJson('/upload-file', [
+        $response = $this->postJson('/api/upload-file', [
             'csv_file' => $file,
         ]);
 

@@ -68,16 +68,16 @@ A aplicação oferece duas principais rotas para interação com o sistema de co
 ### 1. Upload de Arquivos CSV
 
 - **Método**: POST
-- **URL**: `/upload-file`
+- **URL**: `/api/upload-file`
 - **Parâmetro**:
   - `csv_file` (obrigatório): O arquivo CSV contendo os dados de débitos.
 
 ### 2. Visualização de Arquivos Carregados
 
 - **Método**: GET
-- **URL**: `/uploaded-files`
+- **URL**: `/api/uploaded-files`
 - **Descrição**: Retorna uma lista de todos os arquivos CSV que foram carregados.
 
 ## Resultados
 
-Nos testes de desempenho realizados, a rota de upload e processamento de arquivos CSV (`/upload-file`) foi capaz de processar mais de 1.000.000 de linhas em menos de 5 segundos.
+Nos testes de desempenho realizados, a rota de upload e processamento de arquivos CSV (`/api/upload-file`) foi capaz de processar mais de 1.000.000 de linhas em menos de 5 segundos.
